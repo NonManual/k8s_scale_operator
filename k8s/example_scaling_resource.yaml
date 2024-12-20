@@ -1,0 +1,10 @@
+apiVersion: teamsnap.com/v1
+kind: ScalingResource
+metadata:
+  name: example-scaling
+  namespace: default
+spec:
+  scalePercentage: 20  # Scale up by 20%
+  scheduleTime: "08:50"  # Start scaling at 8:50 AM
+  duration: "30"  # Duration in minutes
+  targetDeployment: "web-server-deployment"  # Name of the deployment to scale

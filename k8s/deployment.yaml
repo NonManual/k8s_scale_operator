@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaling-operator
+  namespace: web_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaling-operator
+  template:
+    metadata:
+      labels:
+        app: scaling-operator
+    spec:
+      serviceAccountName: scaling-operator
+      containers:
+        - name: scaling-operator
+          image: your-docker-image:latest
+          imagePullPolicy: Always
+          env:
+            - name: KUBECONFIG
+              value: /root/.kube/config
+          volumeMounts:
+            - name: kube-config
+              mountPath: /root/.kube
+      volumes:
+        - name: kube-config
+          hostPath:
+            path: /root/.kube
+            type: Directory
